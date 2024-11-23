@@ -27,15 +27,12 @@ public class GlobalExceptionHandler {
 
     String combinedErrors = String.join(", ", errors);
 
-    log.warn("MethodArgumentNotValidException: {}", errors);
-
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                          .body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), combinedErrors));
   }
 
   @ExceptionHandler(BusinessException.class)
   public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException e) {
-    log.info("BusinessException: {}", e.getMessage());
     return ResponseEntity.status(e.getCode()).body(ErrorResponse.of(e.getCode(), e.getMessage()));
   }
 }
