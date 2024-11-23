@@ -44,6 +44,10 @@ public class RegretService {
 
     Page<Regret> userRegrets = regretRepository.findAllByUser(user, pageRequest);
 
+    if (userRegrets.isEmpty()) {
+      throw new BusinessException(ErrorCode.NO_REGRETS_FOUND);
+    }
+
     return buildUserRegretListResponse(userRegrets);
   }
 
@@ -59,6 +63,10 @@ public class RegretService {
         request.getMajor(),
         pageRequest
     );
+
+    if (regrets.isEmpty()) {
+      throw new BusinessException(ErrorCode.NO_REGRETS_FOUND);
+    }
 
     return buildUserRegretListResponse(regrets);
   }
