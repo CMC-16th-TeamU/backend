@@ -36,7 +36,7 @@ public class User extends BaseEntity {
   private String nickname;
 
   @Column(nullable = false)
-  private Integer age;
+  private String birthDate; // "생년월일"을 문자열로 저장 (예: "YYYY-MM-DD")
 
   @Column
   private String gender;
@@ -52,11 +52,11 @@ public class User extends BaseEntity {
   private UserStatus status;
 
   @Builder
-  private User(String email, String password, String nickname, Integer age, String gender, String major, String field, UserStatus status) {
+  private User(String email, String password, String nickname, String birthDate, String gender, String major, String field, UserStatus status) {
     this.email = email;
     this.password = password;
     this.nickname = nickname;
-    this.age = age;
+    this.birthDate = birthDate;
     this.gender = gender;
     this.major = major;
     this.field = field;
@@ -68,7 +68,7 @@ public class User extends BaseEntity {
             .email(userInfoDto.getEmail())
             .password(userInfoDto.getPassword())
             .nickname(userInfoDto.getNickname())
-            .age(userInfoDto.getAge())
+            .birthDate(userInfoDto.getBirthDate())
             .gender(userInfoDto.getGender())
             .major(userInfoDto.getMajor())
             .field(userInfoDto.getField())

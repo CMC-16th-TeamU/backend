@@ -21,7 +21,7 @@ public class UserInfoDto {
     private String nickname;
 
     @NotNull
-    private Integer age;
+    private String birthDate;
 
     @NotNull
     private String gender;
@@ -33,11 +33,11 @@ public class UserInfoDto {
 
     private User.UserStatus status;
 
-    public static UserInfoDto of(String email, String password, Integer age, String gender, String major, String field, User.UserStatus status) {
+    public static UserInfoDto of(String email, String password, String birthDate, String gender, String major, String field, User.UserStatus status) {
         return UserInfoDto.builder()
                 .email(email)
                 .password(password)
-                .age(age)
+                .birthDate(birthDate)
                 .gender(gender)
                 .major(major)
                 .field(field)
