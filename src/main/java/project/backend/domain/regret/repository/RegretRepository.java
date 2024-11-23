@@ -15,6 +15,7 @@ public interface RegretRepository extends JpaRepository<Regret, Long> {
 
   @Query("SELECT r FROM Regret r JOIN r.user u " +
           "WHERE u.birthDate = :birthDate AND u.gender = :gender AND (u.field = :field OR u.major = :major)")
+
   Page<Regret> findRegretsByUserAttributes(@Param("birthDate") String birthDate,
                                                    @Param("gender") String gender,
                                                    @Param("field") String field,
