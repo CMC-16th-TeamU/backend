@@ -2,8 +2,6 @@ package project.backend.domain.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,58 +23,40 @@ public class User extends BaseEntity {
   @Column
   private Long id;
 
-  @Column(nullable = false)
-  private String nickname;
-
   @Column(nullable = false, unique = true)
   private String email;
 
   @Column(nullable = false)
-  private Integer age;
+  private String password;
 
-  @Column
+  @Column(nullable = false)
   private String gender;
 
-  @Column
-  private String major;
-
-  @Column
-  private String field;
-
-  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private UserStatus status;
+  private String birthDate; // "생년월일"을 문자열로 저장 (예: "YYYY-MM-DD")
+
+  @Column(nullable = false)
+  private String major; // "직업"
+
+  @Column(nullable = false)
+  private String field; // "분야"
 
   @Builder
-  private User(String nickname, String email, String profileImageUrl, Integer age, String gender, String major, String field, UserStatus status) {
-    this.nickname = nickname;
+  private User(String email, String password, String gender, String birthDate, String major, String field) {
     this.email = email;
-    this.age = age;
+    this.password = password;
     this.gender = gender;
+    this.birthDate = birthDate;
     this.major = major;
     this.field = field;
-    this.status = status;
   }
 
-  public static User createUser(String email, String nickname, String profileImageUrl, Integer age, String gender, String major, String field, UserStatus status) {
-    return User.builder()
-               .email(email)
-               .nickname(nickname)
-               .profileImageUrl(profileImageUrl)
-               .age(age)
-               .gender(gender)
-               .major(major)
-               .field(field)
-               .status(status)
-               .build();
-  }
-
-  public void withdraw() {
-    this.setActivated(false);
-    this.email = null;
-  }
-
-  public enum UserStatus {
-    STUDENT, EMPLOYEE
+  public void updateFieldAndMajor(String major, String field) {
+    if (major != null && !major.isBlank()) {
+      this.major = major;
+    }
+    if (field != null && !field.isBlank()) {
+      this.field = field;
+    }
   }
 }
