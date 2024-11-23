@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import project.backend.application.regret.request.RegretCreateServiceRequest;
 import project.backend.application.regret.request.UserRegretServiceRequest;
 import project.backend.application.regret.response.UserRegretListResponse;
-import project.backend.application.regret.response.UserRegretResponse;
 import project.backend.application.regret.response.RegretCreateResponse;
+import project.backend.application.regret.response.dto.UserRegretDto;
 import project.backend.domain.regret.Regret;
 import project.backend.domain.regret.repository.RegretRepository;
 import project.backend.domain.user.User;
@@ -42,8 +42,8 @@ public class RegretService {
     return RegretCreateResponse.from(savedRegret);
   }
 
-  public UserRegretListResponse getUserRegrets(Long userId, int page, int size) {
-    User user = userRepository.findById(userId)
+  public UserRegretListResponse getUserRegrets(UserRegretServiceRequest request, int page, int size) {
+    User user = userRepository.findById(request.getUserId())
                               .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     PageRequest pageRequest = PageRequest.of(page, size);
 
@@ -53,8 +53,8 @@ public class RegretService {
     int totalPages = userRegrets.getTotalPages();
     long totalElements = userRegrets.getTotalElements();
 
-    List<UserRegretResponse> regretResponses =
-        userRegrets.stream().map(UserRegretResponse::from).toList();
+    List<UserRegretDto> regretResponses =
+        userRegrets.stream().map(UserRegretDto::from).toList();
 
     return UserRegretListResponse.from(isLast, totalPages, totalElements, regretResponses);
   }
