@@ -23,7 +23,7 @@ public class UserController {
   @Operation(summary = "회원 생성 API", description = "회원 정보를 받아 회원을 생성합니다.")
   @PostMapping
   public ApiResponse<UserCreateResponse> createUser(
-      @Valid @RequestBody UserCreateRequest request) {
+          @Valid @RequestBody UserCreateRequest request) {
     UserCreateResponse response = userService.createUser(request.toServiceRequest());
     return ApiResponse.OK(response);
   }
@@ -31,7 +31,7 @@ public class UserController {
   @Operation(summary = "회원 분야 및 직업 수정 API", description = "회원의 분야와 직업을 수정합니다.")
   @PatchMapping
   public ApiResponse<UserUpdateResponse> updateFieldAndMajor(
-      @Valid @RequestBody UserUpdateRequest request) {
+          @Valid @RequestBody UserUpdateRequest request) {
     UserUpdateResponse response = userService.updateFieldAndMajor(request.toServiceRequest());
     return ApiResponse.OK(response);
   }
