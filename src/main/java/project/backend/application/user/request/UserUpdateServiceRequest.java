@@ -5,11 +5,8 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class UserCreateServiceRequest {
-  private final String email;
-  private final String password;
-  private final String gender;
-  private final String birthDate;
+public class UserUpdateServiceRequest {
+  private final Long userId;
   private final String major;
   private final String field;
 }

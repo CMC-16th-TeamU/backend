@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.backend.api.ApiResponse;
 import project.backend.api.user.request.UserCreateRequest;
+import project.backend.api.user.request.UserUpdateRequest;
 import project.backend.application.user.UserService;
 import project.backend.application.user.response.UserCreateResponse;
+import project.backend.application.user.response.UserUpdateResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +25,15 @@ public class UserController {
   public ApiResponse<UserCreateResponse> createUser(
       @Valid @RequestBody UserCreateRequest request) {
     UserCreateResponse response = userService.createUser(request.toServiceRequest());
+    return ApiResponse.OK(response);
+  }
+
+  @Operation(summary = "회원 분야 및 직업 수정 API", description = "회원의 분야와 직업을 수정합니다.")
+  @PatchMapping("/{id}/field-major")
+  public ApiResponse<UserUpdateResponse> updateFieldAndMajor(
+      @PathVariable Long id,
+      @Valid @RequestBody UserUpdateRequest request) {
+    UserUpdateResponse response = userService.updateFieldAndMajor(request.toServiceRequest(id));
     return ApiResponse.OK(response);
   }
 }

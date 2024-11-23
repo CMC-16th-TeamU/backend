@@ -9,15 +9,15 @@ import project.backend.domain.user.User;
 public class UserCreateResponse {
   private final Long id;
   private final String email;
-  private final String nickname;
-  private final String status;
+  private final String gender;
+  private final String birthDate;
 
   public static UserCreateResponse from(User user) {
     return UserCreateResponse.builder()
                              .id(user.getId())
                              .email(user.getEmail())
-                             .nickname(user.getNickname())
-                             .status(user.getStatus().name())
+                             .gender(user.getGender())
+                             .birthDate(user.getBirthDate())
                              .build();
   }
 }
