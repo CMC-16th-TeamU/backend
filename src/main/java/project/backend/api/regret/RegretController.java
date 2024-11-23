@@ -14,6 +14,7 @@ import project.backend.application.regret.response.RegretCreateResponse;
 @RequestMapping("/regrets")
 @RequiredArgsConstructor
 public class RegretController {
+
   private final RegretService regretService;
 
   @PostMapping
