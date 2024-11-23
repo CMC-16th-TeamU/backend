@@ -35,7 +35,7 @@ public class Regret extends BaseEntity {
   private User user;
 
   @Builder
-  public Regret(String regretContent, User user) {
+  private Regret(String regretContent, User user) {
     this.regretContent = regretContent;
     this.user = user;
   }

@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class UserCreateServiceRequest {
+
   private final String email;
   private final String password;
   private final String gender;
