@@ -18,7 +18,7 @@ public class UserService {
         if (userRepository.existsByEmail(infoDto.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
-        User savedUser = userRepository.save(User.createUser(infoDto));
+        userRepository.save(User.createUser(infoDto));
     }
 
 }
