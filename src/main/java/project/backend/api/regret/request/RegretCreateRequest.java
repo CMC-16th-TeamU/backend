@@ -17,7 +17,7 @@ public class RegretCreateRequest {
   public RegretCreateServiceRequest toServiceRequest() {
     return RegretCreateServiceRequest.builder()
                                      .userId(userId)
-                                     .regretContent(regretContent).build();
+                                     .regretContent(regretContent)
+                                     .build();
   }
-
 }
