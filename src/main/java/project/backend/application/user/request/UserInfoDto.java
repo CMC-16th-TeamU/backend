@@ -31,9 +31,7 @@ public class UserInfoDto {
 
     private String field;
 
-    private User.UserStatus status;
-
-    public static UserInfoDto of(String email, String password, String birthDate, String gender, String major, String field, User.UserStatus status) {
+    public static UserInfoDto of(String email, String password, String birthDate, String gender, String major, String field) {
         return UserInfoDto.builder()
                 .email(email)
                 .password(password)
@@ -41,7 +39,6 @@ public class UserInfoDto {
                 .gender(gender)
                 .major(major)
                 .field(field)
-                .status(status)
                 .build();
     }
 

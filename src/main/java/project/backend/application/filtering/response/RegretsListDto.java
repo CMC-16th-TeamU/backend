@@ -10,5 +10,17 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class RegretsListDto {
-    private List<RegretsDto> regrets; // 여러 개의 회고를 담는 리스트
+    private boolean isLast;
+    private int totalPage;
+    private long totalElement;
+    private List<RegretsDto> regrets;
+
+    public static RegretsListDto of(boolean isLast, int totalPage, long totalElement,List<RegretsDto> regrets ){
+        return RegretsListDto.builder()
+                .isLast(isLast)
+                .totalPage(totalPage)
+                .totalElement(totalElement)
+                .regrets(regrets)
+                .build();
+    }
 }
