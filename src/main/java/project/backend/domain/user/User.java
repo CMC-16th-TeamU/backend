@@ -12,7 +12,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.backend.application.user.request.UserInfoDto;
 import project.backend.domain.BaseEntity;
 
 @Entity
@@ -52,7 +51,8 @@ public class User extends BaseEntity {
   private UserStatus status;
 
   @Builder
-  private User(String email, String password, String nickname, Integer age, String gender, String major, String field, UserStatus status) {
+  private User(String email, String password, String nickname, Integer age, String gender,
+      String major, String field, UserStatus status) {
     this.email = email;
     this.password = password;
     this.nickname = nickname;
@@ -61,19 +61,6 @@ public class User extends BaseEntity {
     this.major = major;
     this.field = field;
     this.status = status;
-  }
-
-  public static User createUser(UserInfoDto userInfoDto) {
-    return User.builder()
-            .email(userInfoDto.getEmail())
-            .password(userInfoDto.getPassword())
-            .nickname(userInfoDto.getNickname())
-            .age(userInfoDto.getAge())
-            .gender(userInfoDto.getGender())
-            .major(userInfoDto.getMajor())
-            .field(userInfoDto.getField())
-            .status(userInfoDto.getStatus())
-            .build();
   }
 
   public void withdraw() {
