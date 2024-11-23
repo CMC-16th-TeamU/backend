@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.backend.domain.BaseEntity;
@@ -32,4 +33,10 @@ public class Regret extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
+
+  @Builder
+  public Regret(String regretContent, User user) {
+    this.regretContent = regretContent;
+    this.user = user;
+  }
 }
