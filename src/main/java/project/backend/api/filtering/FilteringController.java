@@ -19,8 +19,13 @@ public class FilteringController {
     @Operation(summary = "회고 필터 api")
     @PostMapping
     public ResponseEntity<RegretsListDto> getRegretsFilter(@RequestBody FilterOptionsDto filterOptionsDto,
+<<<<<<< HEAD
                                                            @RequestParam(value = "page", defaultValue = "0") int page,
                                                            @RequestParam(value = "size", defaultValue = "10") int size) {
+=======
+                                                            @RequestParam(value = "page", defaultValue = "0") int page,
+                                                            @RequestParam(value = "size", defaultValue = "10") int size) {
+>>>>>>> a754d46fe3563102bac2ec504bb2bb0094ee6f38
         RegretsListDto regrets = filteringService.findRegretsByUserAttributes(filterOptionsDto, page, size);
         return ResponseEntity.ok(regrets);
     }

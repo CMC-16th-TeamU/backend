@@ -1,7 +1,6 @@
 package project.backend.application.regret;
 
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,37 +25,37 @@ import project.backend.exception.ErrorCode;
 @Slf4j
 public class RegretService {
 
-    private final RegretRepository regretRepository;
-    private final UserRepository userRepository;
+  private final RegretRepository regretRepository;
+  private final UserRepository userRepository;
 
-    @Transactional
-    public RegretCreateResponse createRegret(RegretCreateServiceRequest request) {
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+  @Transactional
+  public RegretCreateResponse createRegret(RegretCreateServiceRequest request) {
+    User user = userRepository.findById(request.getUserId())
+                              .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-        Regret regret = Regret.builder()
-                .regretContent(request.getRegretContent())
-                .user(user)
-                .build();
+    Regret regret = Regret.builder()
+                          .regretContent(request.getRegretContent())
+                          .user(user)
+                          .build();
 
-        Regret savedRegret = regretRepository.save(regret);
-        return RegretCreateResponse.from(savedRegret);
-    }
+    Regret savedRegret = regretRepository.save(regret);
+    return RegretCreateResponse.from(savedRegret);
+  }
 
-    public UserRegretListResponse getUserRegrets(Long userId, int page, int size) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
-        PageRequest pageRequest = PageRequest.of(page, size);
+  public UserRegretListResponse getUserRegrets(Long userId, int page, int size) {
+    User user = userRepository.findById(userId)
+                              .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+    PageRequest pageRequest = PageRequest.of(page, size);
 
-        Page<Regret> userRegrets = regretRepository.findAllByUser(user, pageRequest);
+    Page<Regret> userRegrets = regretRepository.findAllByUser(user, pageRequest);
 
-        boolean isLast = userRegrets.isLast();
-        int totalPages = userRegrets.getTotalPages();
-        long totalElements = userRegrets.getTotalElements();
+    boolean isLast = userRegrets.isLast();
+    int totalPages = userRegrets.getTotalPages();
+    long totalElements = userRegrets.getTotalElements();
 
-        List<UserRegretResponse> regretResponses =
-                userRegrets.stream().map(UserRegretResponse::from).toList();
+    List<UserRegretResponse> regretResponses =
+        userRegrets.stream().map(UserRegretResponse::from).toList();
 
-        return UserRegretListResponse.from(isLast, totalPages, totalElements, regretResponses);
-    }
+    return UserRegretListResponse.from(isLast, totalPages, totalElements, regretResponses);
+  }
 }
