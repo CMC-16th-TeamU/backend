@@ -16,35 +16,35 @@ import project.backend.exception.ErrorCode;
 @RequiredArgsConstructor
 public class UserService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  @Transactional
-  public UserCreateResponse createUser(UserCreateServiceRequest request) {
-    if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-      throw new BusinessException(ErrorCode.DUPLICATE_EMAIL);
+    @Transactional
+    public UserCreateResponse createUser(UserCreateServiceRequest request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new BusinessException(ErrorCode.DUPLICATE_EMAIL);
+        }
+
+        User user = User.builder()
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .gender(request.getGender())
+                .birthDate(request.getBirthDate())
+                .major(request.getMajor())
+                .field(request.getField())
+                .build();
+
+        User savedUser = userRepository.save(user);
+
+        return UserCreateResponse.from(savedUser);
     }
 
-    User user = User.builder()
-                    .email(request.getEmail())
-                    .password(request.getPassword())
-                    .gender(request.getGender())
-                    .birthDate(request.getBirthDate())
-                    .major(request.getMajor())
-                    .field(request.getField())
-                    .build();
+    @Transactional
+    public UserUpdateResponse updateFieldAndMajor(UserUpdateServiceRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-    User savedUser = userRepository.save(user);
+        user.updateFieldAndMajor(request.getMajor(), request.getField());
 
-    return UserCreateResponse.from(savedUser);
-  }
-
-  @Transactional
-  public UserUpdateResponse updateFieldAndMajor(UserUpdateServiceRequest request) {
-    User user = userRepository.findById(request.getUserId())
-                              .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
-
-    user.updateFieldAndMajor(request.getMajor(), request.getField());
-
-    return UserUpdateResponse.from(user);
-  }
+        return UserUpdateResponse.from(user);
+    }
 }

@@ -14,7 +14,7 @@ import project.backend.application.user.response.UserUpdateResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @Tag(name = "회원 관리", description = "회원 생성 및 관리 API")
 public class UserController {
 
@@ -29,11 +29,10 @@ public class UserController {
   }
 
   @Operation(summary = "회원 분야 및 직업 수정 API", description = "회원의 분야와 직업을 수정합니다.")
-  @PatchMapping("/{id}/field-major")
+  @PatchMapping
   public ApiResponse<UserUpdateResponse> updateFieldAndMajor(
-      @PathVariable Long id,
       @Valid @RequestBody UserUpdateRequest request) {
-    UserUpdateResponse response = userService.updateFieldAndMajor(request.toServiceRequest(id));
+    UserUpdateResponse response = userService.updateFieldAndMajor(request.toServiceRequest());
     return ApiResponse.OK(response);
   }
 }
