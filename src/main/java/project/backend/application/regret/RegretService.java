@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.backend.application.regret.request.FilterOptionsDto;
 import project.backend.application.regret.request.RegretCreateServiceRequest;
 import project.backend.application.regret.response.UserRegretListResponse;
 import project.backend.application.regret.response.RegretCreateResponse;
@@ -56,5 +58,30 @@ public class RegretService {
         userRegrets.stream().map(UserRegretDto::from).toList();
 
     return UserRegretListResponse.from(isLast, totalPages, totalElements, regretResponses);
+  }
+
+  public UserRegretListResponse findRegretsByUserAttributes(FilterOptionsDto filterOptionsDto, int page, int size) {
+
+    String sortBy = filterOptionsDto.getSortBy() != null && filterOptionsDto.getSortBy().equalsIgnoreCase("ASC") ? "ASC" : "DESC";
+
+    Sort sort = Sort.by(new Sort.Order(Sort.Direction.fromString(sortBy), "createdAt"));
+
+    PageRequest pageRequest = PageRequest.of(page, size, sort);
+
+    Page<Regret> regrets = regretRepository.findRegretsByUserAttributes(
+            filterOptionsDto.getBirthDate(),
+            filterOptionsDto.getGender(),
+            filterOptionsDto.getField(),
+            filterOptionsDto.getMajor(),
+            pageRequest
+    );
+
+    boolean isLast = regrets.isLast();
+    int totalPage = regrets.getTotalPages();
+    long totalElement = regrets.getTotalElements();
+
+    List<UserRegretDto> regretResponses = regrets.stream().map(UserRegretDto::from).toList();
+
+    return UserRegretListResponse.from(isLast, totalPage, totalElement, regretResponses);
   }
 }

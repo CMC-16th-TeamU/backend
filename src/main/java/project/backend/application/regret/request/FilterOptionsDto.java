@@ -1,4 +1,4 @@
-package project.backend.application.filtering.request;
+package project.backend.application.regret.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

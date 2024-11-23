@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.backend.api.ApiResponse;
 import project.backend.api.regret.request.RegretCreateRequest;
+import project.backend.application.regret.request.FilterOptionsDto;
 import project.backend.application.regret.RegretService;
 import project.backend.application.regret.response.UserRegretListResponse;
 import project.backend.application.regret.response.RegretCreateResponse;
@@ -33,5 +34,14 @@ public class RegretController {
       @RequestParam(value = "page", defaultValue = "0") int page,
       @RequestParam(value = "size", defaultValue = "10") int size) {
     return ApiResponse.OK(regretService.getUserRegrets(userId, page, size));
+  }
+
+  @Operation(summary = "회고 필터 api")
+  @PostMapping("/filter")
+  public ApiResponse<UserRegretListResponse> getRegretsFilter(@Valid @RequestBody FilterOptionsDto filterOptionsDto,
+                                                         @RequestParam(value = "page", defaultValue = "0") int page,
+                                                         @RequestParam(value = "size", defaultValue = "10") int size) {
+
+    return ApiResponse.OK(regretService.findRegretsByUserAttributes(filterOptionsDto, page, size));
   }
 }
