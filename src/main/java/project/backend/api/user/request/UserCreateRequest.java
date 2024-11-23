@@ -18,7 +18,7 @@ public class UserCreateRequest {
   @NotBlank(message = "성별을 입력해주세요.")
   private String gender;
 
-  @NotBlank(message = "생년월일을 입력해주세요. (예: YYYY-MM-DD)")
+  @NotBlank(message = "태어난 연도를 입력해주세요.")
   private String birthDate;
 
   @NotBlank(message = "직업을 입력해주세요.")
