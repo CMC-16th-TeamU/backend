@@ -14,14 +14,14 @@ import project.backend.application.user.response.UserUpdateResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 @Tag(name = "회원 관리", description = "회원 생성 및 관리 API")
 public class UserController {
 
   private final UserService userService;
 
   @Operation(summary = "회원 생성 API", description = "회원 정보를 받아 회원을 생성합니다.")
-  @PostMapping("/create")
+  @PostMapping
   public ApiResponse<UserCreateResponse> createUser(
       @Valid @RequestBody UserCreateRequest request) {
     UserCreateResponse response = userService.createUser(request.toServiceRequest());
