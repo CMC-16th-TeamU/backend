@@ -1,9 +1,11 @@
 package project.backend.api;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
+@JsonPropertyOrder({"code", "message", "data"})
 public class ApiResponse<T> {
 
   private final int code;
