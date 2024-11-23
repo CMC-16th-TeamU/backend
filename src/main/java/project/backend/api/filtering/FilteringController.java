@@ -14,8 +14,6 @@ import project.backend.application.filtering.response.RegretsListDto;
 @RequestMapping("/api/main/filter")
 @Tag(name = "회고 필터 조회", description = "필터링 된 회고를 반환하는 api")
 public class FilteringController {
-
-
     private final FilteringService filteringService;
 
     @Operation(summary = "회고 필터 api")
