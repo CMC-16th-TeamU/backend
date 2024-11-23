@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.backend.application.regret.request.RegretCreateServiceRequest;
-import project.backend.application.regret.request.UserRegretServiceRequest;
 import project.backend.application.regret.response.UserRegretListResponse;
 import project.backend.application.regret.response.RegretCreateResponse;
 import project.backend.application.regret.response.dto.UserRegretDto;
@@ -42,8 +41,8 @@ public class RegretService {
     return RegretCreateResponse.from(savedRegret);
   }
 
-  public UserRegretListResponse getUserRegrets(UserRegretServiceRequest request, int page, int size) {
-    User user = userRepository.findById(request.getUserId())
+  public UserRegretListResponse getUserRegrets(Long userId, int page, int size) {
+    User user = userRepository.findById(userId)
                               .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     PageRequest pageRequest = PageRequest.of(page, size);
 

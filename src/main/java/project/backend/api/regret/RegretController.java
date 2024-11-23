@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.backend.api.ApiResponse;
 import project.backend.api.regret.request.RegretCreateRequest;
-import project.backend.api.regret.request.UserRegretRequest;
 import project.backend.application.regret.RegretService;
 import project.backend.application.regret.response.UserRegretListResponse;
 import project.backend.application.regret.response.RegretCreateResponse;
@@ -28,11 +27,11 @@ public class RegretController {
   }
 
   @Operation(summary = "사용자의 회고 조회 API")
-  @GetMapping
+  @GetMapping("/users/{userId}")
   public ApiResponse<UserRegretListResponse> getUserRegrets(
-      @Valid @RequestBody UserRegretRequest userRegretRequest,
+      @PathVariable Long userId,
       @RequestParam(value = "page", defaultValue = "0") int page,
       @RequestParam(value = "size", defaultValue = "10") int size) {
-    return ApiResponse.OK(regretService.getUserRegrets(userRegretRequest.toServiceRequest(), page, size));
+    return ApiResponse.OK(regretService.getUserRegrets(userId, page, size));
   }
 }
