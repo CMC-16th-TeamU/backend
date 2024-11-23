@@ -18,7 +18,7 @@ public class RegretController {
   private final RegretService regretService;
 
   @PostMapping
-  public RegretCreateResponse createRegret(@RequestBody RegretCreateRequest regretCreateRequest) {
+  public RegretCreateResponse createRegret(@Valid @RequestBody RegretCreateRequest regretCreateRequest) {
     return regretService.createRegret(regretCreateRequest.toServiceRequest());
   }
 }
