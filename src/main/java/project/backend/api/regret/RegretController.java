@@ -39,7 +39,7 @@ public class RegretController {
 
   @Operation(summary = "회고 필터 api")
   @PostMapping("/filter")
-  public ApiResponse<UserRegretListResponse> getRegretsFilter(@RequestBody FilterOptionsDto filterOptionsDto,
+  public ApiResponse<UserRegretListResponse> getRegretsFilter(@Valid @RequestBody FilterOptionsDto filterOptionsDto,
                                                          @RequestParam(value = "page", defaultValue = "0") int page,
                                                          @RequestParam(value = "size", defaultValue = "10") int size) {
 
